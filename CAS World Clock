@@ -1,0 +1,233 @@
+package udemy1;
+import java.time.Duration;
+ 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+ 
+
+import java.text.*;
+import java.time.*;
+import java.time.format.*;
+import java.util.*;
+ 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+
+import java.io.File;
+import java.io.IOException;
+
+ 
+ 
+public class MajorProject {
+ 
+	public static WebDriver driver;
+ 
+	public WebDriver createDriver() {
+		// Invoke getWebDriver method from DriverSetup and return it
+		driver = new ChromeDriver();
+		driver.get("https://cognizantonline.sharepoint.com/sites/Be.Cognizant/SitePages/Home.aspx");
+		driver.manage().window().maximize();// window maximize
+		driver.get("https://Be.cognizant.com");// to get the cognizant website
+		driver.manage().timeouts().implicitlyWait(Duration.ofMinutes(1)); // to provide timeout
+		//WebDriverWait mywait=new WebDriverWait(driver,Duration.)
+		return driver;
+	}
+/*	public void credentials() throws InterruptedException {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("ENTER THE USER EMAIL ID");
+		String email=sc.nextLine();
+		driver.findElement(By.xpath("")).sendKeys(email);
+		driver.findElement(By.xpath("")).click();
+		System.out.println("ENTER THE USER PASSWORD");
+		String pass=sc.nextLine();
+		driver.findElement(By.xpath("")).sendKeys(pass);
+		driver.findElement(By.xpath("")).click();
+		Thread.sleep(0);
+
+	}*/
+	public void  verify_user() throws InterruptedException {
+		//Thread.sleep(2000);
+		driver.findElement(By.xpath("//*[@id=\"O365_MainLink_MePhoto\"]/div/div/div/div/div[2]")).click();
+		String usermail= driver.findElement(By.xpath("//*[@id=\"mectrl_currentAccount_secondary\"]")).getText();
+        Assert.assertEquals(driver.getTitle(),"Be.Cognizant - Home");
+		if (usermail.equalsIgnoreCase("2303728@cognizant.com"))
+			System.out.println("Website launch is cognizant portal with correct user");
+		else
+			System.out.println("Website launch is incorrect");
+		System.out.println(usermail);
+	}
+	public void scrollDown() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement ele = driver.findElement(By.xpath("//*[@id=\"vpc_WebPart.WorldClockWebPart.internal.60655e4a-73c8-49d0-9571-c762791557af\"]"));
+		js.executeScript("arguments[0].scrollIntoView();",ele);
+		if(ele.isDisplayed()) {
+			System.out.println("scrolled down to the world clock ");
+		}
+	}
+	
+	public void dates() {
+		String places[]= new String[3];
+		places[0]=driver.findElement(By.xpath("//*[@id=\"vpc_WebPart.WorldClockWebPart.internal.60655e4a-73c8-49d0-9571-c762791557af\"]/div/div[2]/div/div/div/div/div/div[1]/div/div/div/div[1]")).getText();
+		places[1]=driver.findElement(By.xpath("//*[@id=\"vpc_WebPart.WorldClockWebPart.internal.60655e4a-73c8-49d0-9571-c762791557af\"]/div/div[2]/div/div/div/div/div/div[2]/div/div/div/div[1]")).getText();
+		places[2]=driver.findElement(By.xpath("//*[@id=\"vpc_WebPart.WorldClockWebPart.internal.60655e4a-73c8-49d0-9571-c762791557af\"]/div/div[2]/div/div/div/div/div/div[3]/div/div/div/div[1]")).getText();
+		String Time[] = new String[3];
+		Time[0]= driver.findElement(By.xpath("//*[@id=\"vpc_WebPart.WorldClockWebPart.internal.60655e4a-73c8-49d0-9571-c762791557af\"]/div/div[2]/div/div/div/div/div/div[1]/div/div/div/div[2]/div[1]/span[1]")).getText();
+		Time[1]= driver.findElement(By.xpath("//*[@id=\"vpc_WebPart.WorldClockWebPart.internal.60655e4a-73c8-49d0-9571-c762791557af\"]/div/div[2]/div/div/div/div/div/div[2]/div/div/div/div[2]/div[1]/span[1]")).getText();
+		Time[2]= driver.findElement(By.xpath("//*[@id=\"vpc_WebPart.WorldClockWebPart.internal.60655e4a-73c8-49d0-9571-c762791557af\"]/div/div[2]/div/div/div/div/div/div[3]/div/div/div/div[2]/div[1]/span[1]")).getText();
+ 
+		String[] TimeDenotions =new String[3];
+		TimeDenotions[0]=driver.findElement(By.xpath("//*[@id=\"vpc_WebPart.WorldClockWebPart.internal.60655e4a-73c8-49d0-9571-c762791557af\"]/div/div[2]/div/div/div/div/div/div[1]/div/div/div/div[2]/div[1]/span[2]")).getText();
+	    TimeDenotions[1]=driver.findElement(By.xpath("//*[@id=\"vpc_WebPart.WorldClockWebPart.internal.60655e4a-73c8-49d0-9571-c762791557af\"]/div/div[2]/div/div/div/div/div/div[2]/div/div/div/div[2]/div[1]/span[2]")).getText();
+	    TimeDenotions[2]=driver.findElement(By.xpath("//*[@id=\"vpc_WebPart.WorldClockWebPart.internal.60655e4a-73c8-49d0-9571-c762791557af\"]/div/div[2]/div/div/div/div/div/div[3]/div/div/div/div[2]/div[1]/span[2]")).getText();
+	    String[] DayDate= new String[3];
+	    DayDate[0]=driver.findElement(By.xpath("//*[@id=\"vpc_WebPart.WorldClockWebPart.internal.60655e4a-73c8-49d0-9571-c762791557af\"]/div/div[2]/div/div/div/div/div/div[1]/div/div/div/div[2]/div[2]/div[2]")).getText();
+	    DayDate[1]=driver.findElement(By.xpath("//*[@id=\"vpc_WebPart.WorldClockWebPart.internal.60655e4a-73c8-49d0-9571-c762791557af\"]/div/div[2]/div/div/div/div/div/div[2]/div/div/div/div[2]/div[2]/div[2]")).getText();
+	    DayDate[2]=driver.findElement(By.xpath("//*[@id=\"vpc_WebPart.WorldClockWebPart.internal.60655e4a-73c8-49d0-9571-c762791557af\"]/div/div[2]/div/div/div/div/div/div[3]/div/div/div/div[2]/div[2]/div[2]")).getText();
+	    String Time_diff1=driver.findElement(By.xpath("//*[@id=\"vpc_WebPart.WorldClockWebPart.internal.60655e4a-73c8-49d0-9571-c762791557af\"]/div/div[2]/div/div/div/div/div/div[2]/div/div/div/div[2]/div[2]/div[1]")).getText();
+	    String Time_diff2=driver.findElement(By.xpath("//*[@id=\"vpc_WebPart.WorldClockWebPart.internal.60655e4a-73c8-49d0-9571-c762791557af\"]/div/div[2]/div/div/div/div/div/div[3]/div/div/div/div[2]/div[2]/div[1]")).getText();
+
+		HashMap<String,String> zones=new HashMap<String,String>();
+		zones.put(places[0],"Asia/Kolkata");
+		zones.put(places[1],"Europe/London");
+		zones.put(places[2],"America/New_York");
+		ZonedDateTime time1 = ZonedDateTime.now(ZoneId.of(zones.get(places[0])));
+        ZonedDateTime time2 = ZonedDateTime.now(ZoneId.of(zones.get(places[1])));
+        ZonedDateTime time3 = ZonedDateTime.now(ZoneId.of(zones.get(places[2])));
+ 
+ 
+       DateTimeFormatter CUSTOM_FORMATTER = DateTimeFormatter.ofPattern("EEEE, M/d/yyyy");
+ 
+       String DayDate1 =CUSTOM_FORMATTER.format(time1);
+       String DayDate2 =CUSTOM_FORMATTER.format(time2);
+       String DayDate3 =CUSTOM_FORMATTER.format(time3);
+ 
+       
+       DateTimeFormatter TIME_FORMATTER=DateTimeFormatter.ofPattern("h:mm a");
+       String timing1 =TIME_FORMATTER.format(time1);
+       //System.out.println(timing1);
+       String timing2 =TIME_FORMATTER.format(time2);
+       String timing3 =TIME_FORMATTER.format(time3);
+		LocalDateTime dt = LocalDateTime.now();
+		ZonedDateTime fromZonedDateTime = dt.atZone(ZoneId.of(zones.get(places[0])));
+		ZonedDateTime toZonedDateTime1 = dt.atZone(ZoneId.of(zones.get(places[1])));
+		ZonedDateTime toZonedDateTime2 = dt.atZone(ZoneId.of(zones.get(places[2])));
+ 
+		long diff1 = Duration.between(fromZonedDateTime, toZonedDateTime1).toMinutes();
+		long diff2 = Duration.between(fromZonedDateTime, toZonedDateTime2).toMinutes();
+ 
+		long hr1 = diff1/60;
+		long min1=diff1%60;
+		String hr=String.valueOf(hr1);
+		String min=String.valueOf(min1);
+		String hr2=String.valueOf(diff2/60);
+		String min2=String.valueOf(diff2%60);
+		String s="";
+		String s1="";
+		if (time1.isBefore(time2))
+		{
+            s=(hr+"h "+min+"m behind");
+        }
+		else if (time2.isBefore(time1))
+		{
+            s=(hr+"h "+min+"m ahead");
+         }
+		else
+		{
+           System.out.println("Both time zones are the same");
+         }
+		if (time1.isBefore(time3))
+		{
+            s1=(hr2+"h "+min2+"m behind");
+        }
+		else if (time3.isBefore(time1))
+		{
+            s1=(hr2+"h "+min2+"m ahead");
+        }
+		else
+		{
+           System.out.println("Both time zones are the same");
+        }
+		
+	
+		Assert.assertEquals(Time[0]+" "+TimeDenotions[0], timing1);
+		Assert.assertEquals(Time[1]+" "+TimeDenotions[1], timing2);
+		Assert.assertEquals(Time[2]+" "+TimeDenotions[2], timing3);
+ 
+		Assert.assertEquals(DayDate[0], DayDate1);
+		Assert.assertEquals(DayDate[1], DayDate2);
+		Assert.assertEquals(DayDate[2], DayDate3);
+		Assert.assertEquals(Time_diff1, s);
+		Assert.assertEquals(Time_diff2, s1);
+		}
+		
+
+	public void scrollUp() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement ele = driver.findElement(By.xpath("//div[@title=\"OneCognizant\"]"));
+		js.executeScript("arguments[0].scrollIntoView();",ele);
+		if(ele.isDisplayed()) {
+			System.out.println("scrolled up to the OneCognizant app&tool ");
+		}
+		String originalWindow = driver.getWindowHandle();
+		assert driver.getWindowHandles().size() == 1;
+		js.executeScript("arguments[0].click();",ele);
+		//WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(20));
+ 
+ 
+		for (String windowHandle : driver.getWindowHandles()) {
+		    if(!originalWindow.contentEquals(windowHandle)) {
+		        driver.switchTo().window(windowHandle);
+		        break;
+		    }
+		}
+		System.out.println(driver.getTitle());
+		driver.manage().timeouts().implicitlyWait(Duration.ofMinutes(2)); // to provide timeout
+ 
+		//Assert.assertEquals(driver.getTitle(),"OneCognizant");
+ 
+		driver.findElement(By.xpath("//*[@id=\"compleMenuDraggable\"]/div")).click(); //handle side bar
+	}
+
+	public void viewAllApps() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement ele = driver.findElement(By.xpath("//*[@id=\"div_hotappscontainer\"]/div/div[2]/div/div[3]/div[1]"));
+		js.executeScript("arguments[0].scrollIntoView();",ele);
+		if(ele.isDisplayed()) {
+			System.out.println("scrolled to view all apps ");
+		}
+		js.executeScript("arguments[0].click();",ele);
+ 
+	}
+	public void appStore(int n) throws IOException {
+		List<WebElement> apps= driver.findElements(By.xpath("//*[@id=\"divAppstoreContainer\"]/div[1]/div/div/div[2]/div/div"));
+		///CAS_WorldClock/screenshots
+		for(int i=0;i<apps.size();i++) {
+			if(i==n-1) {
+				driver.findElement(By.xpath("//*[@id=\"divAppstoreContainer\"]/div[1]/div/div/div[2]/div/div["+n+"]")).click();
+			}
+		}
+		WebElement element=driver.findElement(By.xpath("//*[@id=\"div_appFilteredList\"]/div"));
+		File scrFile = element.getScreenshotAs(OutputType.FILE);
+	    FileUtils.copyFile(scrFile, new File(System.getProperty("user.dir")+"/screenshots/image.png"));
+	}
+
+	public void closeBrowser() {
+		driver.quit();
+	}
+	public static void main(String[] args) throws InterruptedException, IOException {
+		MajorProject m = new MajorProject();
+		m.createDriver();
+		m.verify_user();
+		m.scrollDown();
+		m.dates();
+		m.scrollUp();
+		m.viewAllApps();
+		m.appStore(1);
+		//m.closeBrowser();
+	}
+   }
