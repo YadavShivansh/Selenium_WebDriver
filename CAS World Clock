@@ -55,7 +55,7 @@ public class MajorProject {
 		driver.findElement(By.xpath("//*[@id=\"O365_MainLink_MePhoto\"]/div/div/div/div/div[2]")).click();
 		String usermail= driver.findElement(By.xpath("//*[@id=\"mectrl_currentAccount_secondary\"]")).getText();
         Assert.assertEquals(driver.getTitle(),"Be.Cognizant - Home");
-		if (usermail.equalsIgnoreCase("2303728@cognizant.com"))
+		if (usermail.equalsIgnoreCase("l"))
 			System.out.println("Website launch is cognizant portal with correct user");
 		else
 			System.out.println("Website launch is incorrect");
